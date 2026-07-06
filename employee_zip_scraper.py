@@ -77,16 +77,17 @@ class EmployeeZipScraper:
             "City"
             
         ]
-        if df[required_columns].isnull().values.any():
-            print("Missing values detected in the following columns:")
-            print(df.isnull().sum()[df.isnull().sum()>0])
-        else:
-            print("Data validation completed successfully.")
         
         for column in required_columns:
             if column not in df.columns:
                 raise Exception(f"Missing column: {column}")
-
+        missing=df[required_columns].isnull().sum()
+        if missing.sum()>0:
+            print("Missing values detected in the following columns:")
+            print(missing[missing>0])
+        else:
+            print("Data validation completed successfully.")
+        
         return True
 
 
