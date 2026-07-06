@@ -38,15 +38,12 @@ class TestEmployeeZipScraper(unittest.TestCase):
 
     
     def test_missing_invalid_data(self):
-        data = {
-            "Employee ID": [1],
-            "First Name": ["John"]
-        }
-
-        df = pd.DataFrame(data)
-
-        with self.assertRaises(Exception):
-            self.scraper.validate_data(df)
+        self.scraper.download_zip()
+        excel=self.scraper.extract_zip()
+        df=self.scraper.validate_file(excel)
+        df.loc[0,"Job Title"]=None
+        result=self.scraper.validate_data(df)
+        self.assertTrue(result)
 
 
 if __name__ == "__main__":

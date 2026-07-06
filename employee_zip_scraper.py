@@ -82,7 +82,7 @@ class EmployeeZipScraper:
             print(df.isnull().sum()[df.isnull().sum()>0])
         else:
             print("Data validation completed successfully.")
-
+        
         for column in required_columns:
             if column not in df.columns:
                 raise Exception(f"Missing column: {column}")
